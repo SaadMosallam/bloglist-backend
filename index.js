@@ -2,24 +2,20 @@ const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
 const logger = require('./utils/logger')
-const Blog = require('./models/blog')
+const middleware = require('./utils/middleware')
+const blogsRouter = require('./controllers/blogs')
 
 const app = express()
 
 mongoose.connect(config.MONGODB_URI)
 
 app.use(express.json())
+app.use(middleware.requestLogger)
 
-app.get('/api/blogs', async (request, response) => {
-  const blogs = await Blog.find({})
-  response.json(blogs)
-})
+app.use('/api/blogs', blogsRouter)
 
-app.post('/api/blogs', async (request, response) => {
-  const blog = new Blog(request.body)
-  const savedBlog = await blog.save()
-  response.status(201).json(savedBlog)
-})
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 const PORT = config.PORT
 
