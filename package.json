@@ -1,0 +1,17 @@
+{
+  "name": "bloglist-backend",
+  "version": "1.0.0",
+  "description": "Backend for the Full Stack Open blog list application",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "mongoose": "^9.13.0"
+  }
+}
